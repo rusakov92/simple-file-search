@@ -18,7 +18,8 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "PhpUnit\\": "tests/PHPUnit"
+            "PHPUnit\\": "tests/PHPUnit/src",
+            "PHPUnit\\TestCase\\": "tests/PHPUnit/test_case"
         }
     },
     "require": {

@@ -1,0 +1,12 @@
+#!/usr/bin/env php
+<?php
+
+require_once __DIR__.'/../vendor/autoload.php';
+
+$app = new \App\Console\ConsoleApplication('Simple Console', 'v1.0');
+
+$app->addCommands([
+    new \App\Console\Command\FindCommand(),
+]);
+
+$app->run();
