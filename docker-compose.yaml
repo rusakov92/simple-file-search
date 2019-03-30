@@ -2,7 +2,7 @@ version: '3'
 services:
     web:
         build: .
-        container_name: simplefilesearch-web
+        container_name: simple-file-search-web
         ports:
             - 127.0.0.1:8080:80
         volumes:

@@ -16,8 +16,8 @@ Clone this repository in a preferred location, now we need to build our
 docker image by changing the directory into the cloned repository and then
 running the docker build command to build an image.
 ```bash
-cd /path/to/SimpleFileSearch
-docker build -t simplefilesearch .
+cd /path/to/simple-file-search
+docker build -t simple-file-search .
 ```
 Now we need to start our container using docker-compose. Note that the
 container port is set to be 127.0.0.1:8080 in docker-compose.yaml file.
