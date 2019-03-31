@@ -65,6 +65,31 @@ class SimpleFileSearchTest extends TestCase
     /**
      * @test
      */
+    public function receive_an_exception_when_skipped_directory_is_not_a_dir()
+    {
+        $obj = new SimpleFileSearch(self::TEST_DIR);
+
+        $this->expectException(\InvalidArgumentException::class);
+        $obj->skip('non_existing_dir');
+    }
+
+    /**
+     * @test
+     */
+    public function skip_some_of_the_directories()
+    {
+        $obj = new SimpleFileSearch(self::TEST_DIR);
+        $result = $obj->in('dir1')->skip('dir1/dir1-2')->extension('txt')->find();
+        $this->assertCount(3, $result);
+        /** @var \SplFileInfo $item */
+        foreach ($result as $item) {
+            $this->assertNotEquals('test1-2.txt', $item->getFilename());
+        }
+    }
+
+    /**
+     * @test
+     */
     public function receive_an_exception_when_an_unsupported_extension_is_given()
     {
         $obj = new SimpleFileSearch(self::TEST_DIR);

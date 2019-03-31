@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\IteratorFilter\SkipDirectoryIteratorFilter;
 use App\IteratorFilter\FileExtensionIteratorFilter;
 use App\IteratorFilter\FileIteratorFilter;
 use App\Specification\FileExtensionSpecification;
@@ -15,6 +16,7 @@ class SimpleFileSearch
 {
     protected $baseDir;
     protected $dirs = [];
+    protected $skipDirs = [];
     protected $extensions = [];
     private $fileExtensionSpec;
 
@@ -29,8 +31,9 @@ class SimpleFileSearch
     {
         $this->baseDir = \rtrim($baseDir, \DIRECTORY_SEPARATOR);
         if (\is_dir($baseDir) === false) {
-            throw new \InvalidArgumentException(\sprintf('Directory %s does not exist.', $baseDir));
+            throw new \InvalidArgumentException(\sprintf('Directory "%s" does not exist.', $baseDir));
         }
+        $this->baseDir = \realpath($this->baseDir);
     }
 
     /**
@@ -47,9 +50,32 @@ class SimpleFileSearch
         foreach ((array) $dirs as $dir) {
             $dir = $this->baseDir.\DIRECTORY_SEPARATOR.\trim($dir, \DIRECTORY_SEPARATOR);
             if (\is_dir($dir)) {
-                $this->dirs[] = $dir;
+                $this->dirs[$dir] = true;
             } else {
-                throw new \InvalidArgumentException(\sprintf('Directory %s does not exist.', $dir));
+                throw new \InvalidArgumentException(\sprintf('Directory "%s" does not exist.', $dir));
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * Skip the file search in specific directories of the base directory.
+     *
+     * @param string[]|string $dirs
+     *
+     * @return SimpleFileSearch
+     *
+     * @throws \InvalidArgumentException
+     */
+    public function skip($dirs) : self
+    {
+        foreach ((array) $dirs as $dir) {
+            $dir = $this->baseDir.\DIRECTORY_SEPARATOR.\trim($dir, \DIRECTORY_SEPARATOR);
+            if (\is_dir($dir)) {
+                $this->skipDirs[$dir] = true;
+            } else {
+                throw new \InvalidArgumentException(\sprintf('Directory "%s" does not exist.', $dir));
             }
         }
 
@@ -82,7 +108,7 @@ class SimpleFileSearch
      */
     public function find() : \Iterator
     {
-        $dirs = $this->dirs;
+        $dirs = \array_keys($this->dirs);
 
         if (empty($dirs)) {
             $dirs[] = $this->baseDir;
@@ -115,7 +141,10 @@ class SimpleFileSearch
         // Do a recursive scan on the given directory.
         $iterator = new \RecursiveDirectoryIterator($dir, \RecursiveDirectoryIterator::SKIP_DOTS);
 
-        // Exclude directories from the scanned directory.
+        // Skip recursively directories from the scanned directory.
+        if ($this->skipDirs) {
+            $iterator = new SkipDirectoryIteratorFilter($iterator, $this->skipDirs);
+        }
 
         // Recursively iterate over the found files and directories and build a new iterator with all of the items.
         $iterator = new \RecursiveIteratorIterator($iterator);
@@ -125,7 +154,7 @@ class SimpleFileSearch
 
         // Filter out files that don't have the required extension.
         if ($this->extensions) {
-            $iterator = new FileExtensionIteratorFilter($iterator, \array_keys($this->extensions));
+            $iterator = new FileExtensionIteratorFilter($iterator, $this->extensions);
         }
 
         // Filter out files outside the required depths.

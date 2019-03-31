@@ -21,9 +21,6 @@ class FileExtensionIteratorFilter extends \FilterIterator
     {
         parent::__construct($iterator);
         $this->extensions = $extensions;
-        \array_walk($this->extensions, function (&$extension) {
-            $extension = \mb_strtolower(\trim($extension, '.'));
-        });
     }
 
     /**
@@ -39,6 +36,6 @@ class FileExtensionIteratorFilter extends \FilterIterator
             return false;
         }
 
-        return \in_array(\mb_strtolower($fileExtension), $this->extensions, true);
+        return isset($this->extensions[\mb_strtolower($fileExtension)]);
     }
 }
