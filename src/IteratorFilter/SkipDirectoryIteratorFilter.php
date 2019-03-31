@@ -13,10 +13,9 @@ class SkipDirectoryIteratorFilter extends \FilterIterator implements \RecursiveI
     protected $skip;
 
     /**
-     * SkipDirectoryIteratorFilter constructor.
+     * {@inheritdoc}
      *
-     * @param \Iterator $iterator
-     * @param array     $skip
+     * @param array $skip
      */
     public function __construct(\Iterator $iterator, array $skip)
     {

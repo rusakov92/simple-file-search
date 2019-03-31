@@ -3,7 +3,7 @@
 namespace App\IteratorFilter;
 
 /**
- * Class FileExtensionIteratorFilter.
+ * Class FileExtensionIteratorFilter filters out any file that doesn't have the required extension.
  *
  * @author Aleksandar Rusakov
  */
@@ -12,10 +12,9 @@ class FileExtensionIteratorFilter extends \FilterIterator
     protected $extensions;
 
     /**
-     * FileExtensionIteratorFilter constructor.
+     * {@inheritdoc}
      *
-     * @param \Iterator $iterator
-     * @param array     $extensions
+     * @param array $extensions
      */
     public function __construct(\Iterator $iterator, array $extensions)
     {

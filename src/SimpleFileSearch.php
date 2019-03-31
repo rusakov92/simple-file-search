@@ -10,7 +10,7 @@ use App\IteratorFilter\FileIteratorFilter;
 use App\Specification\FileExtensionSpecification;
 
 /**
- * Class SimpleFileSearch.
+ * Class SimpleFileSearch can find files by looking at their content.
  *
  * @author Aleksandar Rusakov
  */
@@ -158,9 +158,15 @@ class SimpleFileSearch
      * Try finding something from the set rules till now.
      *
      * @return \Iterator
+     *
+     * @throws \UnexpectedValueException
      */
     public function find() : \Iterator
     {
+        if (empty($this->contains)) {
+            throw new \UnexpectedValueException('Please specify at least one regular expresion to search files by content.');
+        }
+
         $dirs = \array_keys($this->dirs);
 
         if (empty($dirs)) {

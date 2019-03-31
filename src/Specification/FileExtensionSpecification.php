@@ -1,16 +1,11 @@
 <?php
-/**
- * This file is part of the Reward Gateway package.
- *
- * (c) Reward Gateway <copyright@rewardgateway.com>
- */
 
 namespace App\Specification;
 
 /**
- * Class FileExtensionSpecification.
+ * Class FileExtensionSpecification is satisfied only only if the file extension type is supported.
  *
- * @author Aleksandar Rusakov <aleksandar.rusakov@rewardgateway.com>
+ * @author Aleksandar Rusakov
  */
 class FileExtensionSpecification
 {

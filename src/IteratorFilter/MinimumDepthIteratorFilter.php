@@ -3,7 +3,7 @@
 namespace App\IteratorFilter;
 
 /**
- * Class MinimumDepthIteratorFilter.
+ * Class MinimumDepthIteratorFilter starts the file filtering from the minimum given depth.
  *
  * @author Aleksandar Rusakov
  */
