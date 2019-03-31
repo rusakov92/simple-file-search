@@ -135,18 +135,20 @@ class SimpleFileSearch
     /**
      * Search file by their content that is matching the regular expressions.
      *
-     * @param string $regEx
+     * @param string[]|string $regExs
      *
      * @return SimpleFileSearch
      *
      * @throws \InvalidArgumentException
      */
-    public function contains(string $regEx) : self
+    public function contains($regExs) : self
     {
-        if (\preg_match('{^#.*#[imsxADSUXJu]*$}', $regEx)) {
-            $this->contains[$regEx] = true;
-        } else {
-            throw new \InvalidArgumentException('Your regular expresion decimeters must be symbol "#".');
+        foreach ((array) $regExs as $regEx) {
+            if (\preg_match('{^#.*#[imsxADSUXJu]*$}', $regEx)) {
+                $this->contains[$regEx] = true;
+            } else {
+                throw new \InvalidArgumentException('Your regular expresion decimeters must be symbol "#".');
+            }
         }
 
         return $this;
