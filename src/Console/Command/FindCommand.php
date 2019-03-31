@@ -31,7 +31,7 @@ class FindCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $fileSearch = new SimpleFileSearch(__DIR__.'/../../../public/demo_files');
-        $a = $fileSearch->in('dir1')->in('dir2')->find();
+        $a = $fileSearch->in('dir1')->in('dir2')->extension('txt')->find();
         foreach ($a as $item) {
             dump($item);
         }

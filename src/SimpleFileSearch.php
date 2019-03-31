@@ -2,7 +2,9 @@
 
 namespace App;
 
+use App\IteratorFilter\FileExtensionIteratorFilter;
 use App\IteratorFilter\FileIteratorFilter;
+use App\Specification\FileExtensionSpecification;
 
 /**
  * Class SimpleFileSearch.
@@ -13,6 +15,8 @@ class SimpleFileSearch
 {
     protected $baseDir;
     protected $dirs = [];
+    protected $extensions = [];
+    private $fileExtensionSpec;
 
     /**
      * SimpleFileSearch constructor.
@@ -30,7 +34,7 @@ class SimpleFileSearch
     }
 
     /**
-     * Search for files only in specific directories of the base root directory.
+     * Search for files only in specific directories of the base directory.
      *
      * @param string[]|string $dirs
      *
@@ -47,6 +51,25 @@ class SimpleFileSearch
             } else {
                 throw new \InvalidArgumentException(\sprintf('Directory %s does not exist.', $dir));
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * Search for files with specific extension.
+     *
+     * @param string[]|string $extensions
+     *
+     * @return SimpleFileSearch
+     *
+     * @throws \InvalidArgumentException
+     */
+    public function extension($extensions) : self
+    {
+        $fileExtensionSpec = $this->getFileExtensionSpecification();
+        foreach ((array) $extensions as $extension) {
+            $this->extensions[$fileExtensionSpec->isSatisfiedBy($extension)] = true;
         }
 
         return $this;
@@ -101,11 +124,28 @@ class SimpleFileSearch
         $iterator = new FileIteratorFilter($iterator);
 
         // Filter out files that don't have the required extension.
+        if ($this->extensions) {
+            $iterator = new FileExtensionIteratorFilter($iterator, \array_keys($this->extensions));
+        }
 
         // Filter out files outside the required depths.
 
         // Filter out files that don't have the required content.
 
         return $iterator;
+    }
+
+    /**
+     * Lazy load the file extension spec.
+     *
+     * @return FileExtensionSpecification
+     */
+    private function getFileExtensionSpecification() : FileExtensionSpecification
+    {
+        if (null === $this->fileExtensionSpec) {
+            $this->fileExtensionSpec = new FileExtensionSpecification();
+        }
+
+        return $this->fileExtensionSpec;
     }
 }

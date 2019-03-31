@@ -11,7 +11,7 @@ use PHPUnit\TestCase\TestCase;
 class SimpleFileSearchTest extends TestCase
 {
     // phpcs:ignoreFile
-    const TEST_DIR = __DIR__.'/../test_case/test_files';
+    public const TEST_DIR = __DIR__.'/../test_case/test_files';
 
     /**
      * @test
@@ -59,6 +59,31 @@ class SimpleFileSearchTest extends TestCase
     {
         $obj = new SimpleFileSearch(self::TEST_DIR);
 
-        $this->assertCount(7, $obj->find());
+        $this->assertCount(8, $obj->find());
+    }
+
+    /**
+     * @test
+     */
+    public function receive_an_exception_when_an_unsupported_extension_is_given()
+    {
+        $obj = new SimpleFileSearch(self::TEST_DIR);
+
+        $this->expectException(\InvalidArgumentException::class);
+        $obj->extension('unsupported_file_extension');
+    }
+
+    /**
+     * @test
+     */
+    public function ignore_unsuported_file_extensions()
+    {
+        $obj = new SimpleFileSearch(self::TEST_DIR);
+        $result = $obj->in('dir2')->extension('txt')->find();
+        $this->assertCount(1, $result);
+        /** @var \SplFileInfo $item */
+        foreach ($result as $item) {
+            $this->assertEquals('test2.txt', $item->getFilename());
+        }
     }
 }
