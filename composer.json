@@ -1,5 +1,5 @@
 {
-    "name": "aleksandar.rusakov/simple-file-search",
+    "name": "rusakov92/simple-file-search",
     "license": "MIT",
     "description": "This package gives you the ability to search for files by their content.",
     "type": "library",
