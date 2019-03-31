@@ -19,16 +19,17 @@
     "autoload-dev": {
         "psr-4": {
             "PHPUnit\\": "tests/PHPUnit/src",
-            "PHPUnit\\TestCase\\": "tests/PHPUnit/test_case"
+            "PHPUnit\\TestCase\\": "tests/PHPUnit/test_case",
+            "Demo\\": "demo"
         }
     },
     "require": {
-        "php": "^7.3",
-        "symfony/console": "^4.2"
+        "php": "^7.3"
     },
     "require-dev": {
         "phpunit/phpunit": "^8.0",
-        "symfony/var-dumper": "^4.2"
+        "symfony/var-dumper": "^4.2",
+        "symfony/console": "^4.2"
     },
     "scripts": {
         "phpunit": "./vendor/bin/phpunit --colors=always"

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Console\Command;
+namespace Demo\Console\Command;
 
 use App\SimpleFileSearch;
 use Symfony\Component\Console\Command\Command;

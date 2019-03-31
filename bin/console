@@ -3,10 +3,10 @@
 
 require_once __DIR__.'/../vendor/autoload.php';
 
-$app = new \App\Console\ConsoleApplication('Simple Console', 'v1.0');
+$app = new \Demo\Console\ConsoleApplication('Simple Console', 'v1.0');
 
 $app->addCommands([
-    new \App\Console\Command\FindCommand(),
+    new \Demo\Console\Command\FindCommand(),
 ]);
 
 $app->run();
