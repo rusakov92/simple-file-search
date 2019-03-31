@@ -15,8 +15,8 @@ that you can use regular expresion with *#* delimiter and call the
 ```php
 /** @var \Iterator $result */
 $result = $simpleFileSearch
-    ->contain(#sentence I am looking for#)
-    ->contain(#^[a-z]+$#)
+    ->contain('#sentence I am looking for#')
+    ->contain('#^[a-z]+$#')
     ->contain(['#[A-Z]+#', '#some text I know#'])
     ->find();
 
@@ -27,17 +27,17 @@ foreach ($result as $item) {
 ```
 Restrict the search to some extensions with `SimpleFileSearch::extension()`.
 ```php
-$result = $simpleFileSearch->contain(#[a-z]+#)->extension('txt')->find();
+$result = $simpleFileSearch->contain('#[a-z]+#')->extension('txt')->find();
 ```
 Restrict the recursion depth of the search.
 ```php
-$result = $simpleFileSearch->contain(#[a-z]+#)->depth(3, 10)->find();
+$result = $simpleFileSearch->contain('#[a-z]+#')->depth(3, 10)->find();
 ```
 Specify directories, part of the base directory, for the search to be
 performed on or skipped.
 ```php
 $result = $simpleFileSearch
-    ->contain(#[a-z]+#)
+    ->contain('#[a-z]+#')
     ->in('path/to/specific/dir')
     ->skip('path/to/specific/dir/skip')
     ->find();
@@ -54,7 +54,7 @@ cd /path/to/simple-file-search
 docker build -t simple-file-search .
 ```
 Now we need to start our container using docker-compose. Note that the
-container port is set to be 127.0.0.1:8080 in docker-compose.yaml file.
+container port is set to be `127.0.0.1:8080` in `docker-compose.yaml` file.
 If that port is already in use please change the port to something else
 that it's free.
 ```bash
