@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\IteratorFilter\MinimumDepthIteratorFilter;
 use App\IteratorFilter\SkipDirectoryIteratorFilter;
 use App\IteratorFilter\FileExtensionIteratorFilter;
 use App\IteratorFilter\FileIteratorFilter;
@@ -18,6 +19,8 @@ class SimpleFileSearch
     protected $dirs = [];
     protected $skipDirs = [];
     protected $extensions = [];
+    protected $minDepth = 0;
+    protected $maxDepth = 256;
     private $fileExtensionSpec;
 
     /**
@@ -102,6 +105,32 @@ class SimpleFileSearch
     }
 
     /**
+     * Set the minimum and maximum depth on the recursion to scan.
+     *
+     * @param int $min
+     * @param int $max
+     *
+     * @return SimpleFileSearch
+     *
+     * @throws \InvalidArgumentException
+     */
+    public function depth(int $min = 0, int $max = 256) : self
+    {
+        if ($min < 0 || $max < 0) {
+            throw new \InvalidArgumentException('The minimum or maximum depth cannot be lower then 0.');
+        }
+
+        if ($min > $max) {
+            throw new \InvalidArgumentException('The minimum depth cannot bigger then the maximum depth.');
+        }
+
+        $this->minDepth = $min;
+        $this->maxDepth = $max;
+
+        return $this;
+    }
+
+    /**
      * Try finding something from the set rules till now.
      *
      * @return \Iterator
@@ -148,6 +177,12 @@ class SimpleFileSearch
 
         // Recursively iterate over the found files and directories and build a new iterator with all of the items.
         $iterator = new \RecursiveIteratorIterator($iterator);
+        $iterator->setMaxDepth($this->maxDepth);
+
+        // Filter out files outside the required min depth.
+        if ($this->minDepth > 0) {
+            $iterator = new MinimumDepthIteratorFilter($iterator, $this->minDepth);
+        }
 
         // Filter out the directories.
         $iterator = new FileIteratorFilter($iterator);
@@ -156,8 +191,6 @@ class SimpleFileSearch
         if ($this->extensions) {
             $iterator = new FileExtensionIteratorFilter($iterator, $this->extensions);
         }
-
-        // Filter out files outside the required depths.
 
         // Filter out files that don't have the required content.
 

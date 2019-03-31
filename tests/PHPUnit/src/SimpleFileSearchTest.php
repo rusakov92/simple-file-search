@@ -111,4 +111,51 @@ class SimpleFileSearchTest extends TestCase
             $this->assertEquals('test2.txt', $item->getFilename());
         }
     }
+
+    /**
+     * @test
+     */
+    public function receive_exception_when_the_minimum_and_maximum_depth_are_under_one()
+    {
+        $obj = new SimpleFileSearch(self::TEST_DIR);
+
+        try {
+            $obj->depth(-1);
+            $this->assertTrue(false);
+        } catch (\InvalidArgumentException $exception) {
+            $this->assertTrue(true);
+        }
+
+        try {
+            $obj->depth(1, 0);
+            $this->assertTrue(false);
+        } catch (\InvalidArgumentException $exception) {
+            $this->assertTrue(true);
+        }
+
+        try {
+            $obj->depth(2, 1);
+            $this->assertTrue(false);
+        } catch (\InvalidArgumentException $exception) {
+            $this->assertTrue(true);
+        }
+    }
+
+    /**
+     * @test
+     */
+    public function search_recursivly_till_the_required_depth()
+    {
+        $obj = new SimpleFileSearch(self::TEST_DIR);
+
+        $obj->extension('txt');
+        $this->assertCount(7, $obj->find());
+        $this->assertCount(7, $obj->depth(0, 3)->find());
+        $this->assertCount(6, $obj->depth(0, 2)->find());
+        $this->assertCount(4, $obj->depth(0, 1)->find());
+        $this->assertCount(2, $obj->depth(0, 0)->find());
+        $this->assertCount(5, $obj->depth(1, 3)->find());
+        $this->assertCount(3, $obj->depth(2, 3)->find());
+        $this->assertCount(1, $obj->depth(3, 3)->find());
+    }
 }
