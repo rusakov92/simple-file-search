@@ -1,11 +1,8 @@
 # Simple File Search
----
 This app simply finds files by searching their content.
 # Instalation
----
 *Empty*
 # Usage
----
 You have to first create a new instance of the class and specify the base
 directory path of the folder you want to scan files for.
 ```php
@@ -46,7 +43,6 @@ $result = $simpleFileSearch
     ->find();
 ```
 # Demo
----
 To see the demo please first install [docker](https://www.docker.com/) on
 your machine, once you are done please follow the guide below:
 
@@ -65,7 +61,6 @@ that it's free.
 docker-compose up
 ```
 ## Console Demo
----
 SSH into the container and run the console application.
 ```bash
 docker exec -it simple-file-search-web bash
@@ -75,6 +70,5 @@ docker exec -it simple-file-search-web bash
 /var/www/html/bin/console search -h
 ```
 ## UI Demo
----
 See the demo here [127.0.0.1:8080](http://127.0.0.1:8080/)
  
