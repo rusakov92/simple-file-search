@@ -158,4 +158,30 @@ class SimpleFileSearchTest extends TestCase
         $this->assertCount(3, $obj->depth(2, 3)->find());
         $this->assertCount(1, $obj->depth(3, 3)->find());
     }
+
+    /**
+     * @test
+     */
+    public function receive_exception_when_the_regular_expresion_is_not_valid()
+    {
+        $obj = new SimpleFileSearch(self::TEST_DIR);
+
+        $this->expectException(\InvalidArgumentException::class);
+        $obj->contains('not_a_reg_ex');
+    }
+
+    /**
+     * @test
+     */
+    public function search_for_files_that_cotain_the_given_reg_ex()
+    {
+        $obj = new SimpleFileSearch(self::TEST_DIR);
+
+        $result = $obj->contains('#test sentence#')->extension('txt')->find();
+        $this->assertCount(2, $result);
+        /** @var \SplFileInfo[] $result */
+        $result = \array_values(\iterator_to_array($result));
+        $this->assertEquals('test1.txt', $result[0]->getFilename());
+        $this->assertEquals('test1-1-1.txt', $result[1]->getFilename());
+    }
 }

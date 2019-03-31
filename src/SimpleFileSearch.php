@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\IteratorFilter\FileContentIteratorFilter;
 use App\IteratorFilter\MinimumDepthIteratorFilter;
 use App\IteratorFilter\SkipDirectoryIteratorFilter;
 use App\IteratorFilter\FileExtensionIteratorFilter;
@@ -18,9 +19,10 @@ class SimpleFileSearch
     protected $baseDir;
     protected $dirs = [];
     protected $skipDirs = [];
-    protected $extensions = [];
     protected $minDepth = 0;
     protected $maxDepth = 256;
+    protected $extensions = [];
+    protected $contains = [];
     private $fileExtensionSpec;
 
     /**
@@ -86,25 +88,6 @@ class SimpleFileSearch
     }
 
     /**
-     * Search for files with specific extension.
-     *
-     * @param string[]|string $extensions
-     *
-     * @return SimpleFileSearch
-     *
-     * @throws \InvalidArgumentException
-     */
-    public function extension($extensions) : self
-    {
-        $fileExtensionSpec = $this->getFileExtensionSpecification();
-        foreach ((array) $extensions as $extension) {
-            $this->extensions[$fileExtensionSpec->isSatisfiedBy($extension)] = true;
-        }
-
-        return $this;
-    }
-
-    /**
      * Set the minimum and maximum depth on the recursion to scan.
      *
      * @param int $min
@@ -126,6 +109,45 @@ class SimpleFileSearch
 
         $this->minDepth = $min;
         $this->maxDepth = $max;
+
+        return $this;
+    }
+
+    /**
+     * Search for files with specific extension.
+     *
+     * @param string[]|string $extensions
+     *
+     * @return SimpleFileSearch
+     *
+     * @throws \InvalidArgumentException
+     */
+    public function extension($extensions) : self
+    {
+        $fileExtensionSpec = $this->getFileExtensionSpecification();
+        foreach ((array) $extensions as $extension) {
+            $this->extensions[$fileExtensionSpec->isSatisfiedBy($extension)] = true;
+        }
+
+        return $this;
+    }
+
+    /**
+     * Search file by their content that is matching the regular expressions.
+     *
+     * @param string $regEx
+     *
+     * @return SimpleFileSearch
+     *
+     * @throws \InvalidArgumentException
+     */
+    public function contains(string $regEx) : self
+    {
+        if (\preg_match('{^#.*#[imsxADSUXJu]*$}', $regEx)) {
+            $this->contains[$regEx] = true;
+        } else {
+            throw new \InvalidArgumentException('Your regular expresion decimeters must be symbol "#".');
+        }
 
         return $this;
     }
@@ -193,6 +215,9 @@ class SimpleFileSearch
         }
 
         // Filter out files that don't have the required content.
+        if ($this->contains) {
+            $iterator = new FileContentIteratorFilter($iterator, \array_keys($this->contains));
+        }
 
         return $iterator;
     }
