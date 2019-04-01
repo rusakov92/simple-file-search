@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "00a9289a669fc98e3e87bbfbf7995e44",
+    "content-hash": "15e8134ed97a9467af6189a9ffba5d67",
     "packages": [
         {
             "name": "composer/ca-bundle",
@@ -1177,16 +1177,16 @@
         },
         {
             "name": "rusakov92/simple-file-search",
-            "version": "dev-master",
+            "version": "0.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rusakov92/simple-file-search.git",
-                "reference": "be9a4703f1df5a1605b2fb0a50ad37edea890a8c"
+                "reference": "c466e7c8a1e440612ad0ef1c54b602e6d420895e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rusakov92/simple-file-search/zipball/be9a4703f1df5a1605b2fb0a50ad37edea890a8c",
-                "reference": "be9a4703f1df5a1605b2fb0a50ad37edea890a8c",
+                "url": "https://api.github.com/repos/rusakov92/simple-file-search/zipball/c466e7c8a1e440612ad0ef1c54b602e6d420895e",
+                "reference": "c466e7c8a1e440612ad0ef1c54b602e6d420895e",
                 "shasum": ""
             },
             "require": {
@@ -1202,24 +1202,9 @@
             "autoload": {
                 "psr-4": {
                     "App\\": "src/"
-                },
-                "optimize-autoloader": true,
-                "apcu-autoloader": true
-            },
-            "autoload-dev": {
-                "psr-4": {
-                    "PHPUnit\\": "tests/PHPUnit/src",
-                    "PHPUnit\\TestCase\\": "tests/PHPUnit/test_case"
                 }
             },
-            "scripts": {
-                "phpunit": [
-                    "./vendor/bin/phpunit --colors=always"
-                ],
-                "codecept": [
-                    "cd tests/Codeception && ./../../vendor/bin/codecept run --steps"
-                ]
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -1230,11 +1215,7 @@
                 }
             ],
             "description": "This package gives you the ability to search for files by their content.",
-            "support": {
-                "source": "https://github.com/rusakov92/simple-file-search/tree/master",
-                "issues": "https://github.com/rusakov92/simple-file-search/issues"
-            },
-            "time": "2019-04-01T13:27:38+00:00"
+            "time": "2019-04-01T14:06:50+00:00"
         },
         {
             "name": "sensio/distribution-bundle",
@@ -2325,9 +2306,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "rusakov92/simple-file-search": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
