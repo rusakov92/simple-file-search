@@ -1181,12 +1181,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/rusakov92/simple-file-search.git",
-                "reference": "c12bfcd067579a407c94656679a543482194a9d2"
+                "reference": "be9a4703f1df5a1605b2fb0a50ad37edea890a8c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rusakov92/simple-file-search/zipball/c12bfcd067579a407c94656679a543482194a9d2",
-                "reference": "c12bfcd067579a407c94656679a543482194a9d2",
+                "url": "https://api.github.com/repos/rusakov92/simple-file-search/zipball/be9a4703f1df5a1605b2fb0a50ad37edea890a8c",
+                "reference": "be9a4703f1df5a1605b2fb0a50ad37edea890a8c",
                 "shasum": ""
             },
             "require": {
@@ -1234,7 +1234,7 @@
                 "source": "https://github.com/rusakov92/simple-file-search/tree/master",
                 "issues": "https://github.com/rusakov92/simple-file-search/issues"
             },
-            "time": "2019-04-01T13:22:23+00:00"
+            "time": "2019-04-01T13:27:38+00:00"
         },
         {
             "name": "sensio/distribution-bundle",
