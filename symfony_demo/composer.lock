@@ -1181,12 +1181,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/rusakov92/simple-file-search.git",
-                "reference": "72cbef8f427172663fed4484b49666c73a69663f"
+                "reference": "c12bfcd067579a407c94656679a543482194a9d2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rusakov92/simple-file-search/zipball/72cbef8f427172663fed4484b49666c73a69663f",
-                "reference": "72cbef8f427172663fed4484b49666c73a69663f",
+                "url": "https://api.github.com/repos/rusakov92/simple-file-search/zipball/c12bfcd067579a407c94656679a543482194a9d2",
+                "reference": "c12bfcd067579a407c94656679a543482194a9d2",
                 "shasum": ""
             },
             "require": {
@@ -1209,13 +1209,15 @@
             "autoload-dev": {
                 "psr-4": {
                     "PHPUnit\\": "tests/PHPUnit/src",
-                    "PHPUnit\\TestCase\\": "tests/PHPUnit/test_case",
-                    "Demo\\": "demo"
+                    "PHPUnit\\TestCase\\": "tests/PHPUnit/test_case"
                 }
             },
             "scripts": {
                 "phpunit": [
                     "./vendor/bin/phpunit --colors=always"
+                ],
+                "codecept": [
+                    "cd tests/Codeception && ./../../vendor/bin/codecept run --steps"
                 ]
             },
             "license": [
@@ -1232,7 +1234,7 @@
                 "source": "https://github.com/rusakov92/simple-file-search/tree/master",
                 "issues": "https://github.com/rusakov92/simple-file-search/issues"
             },
-            "time": "2019-03-31T20:42:20+00:00"
+            "time": "2019-04-01T13:22:23+00:00"
         },
         {
             "name": "sensio/distribution-bundle",
