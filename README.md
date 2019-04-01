@@ -63,22 +63,38 @@ that it's free.
 ```bash
 docker-compose up
 ```
-## Console Demo
-SSH into the container and run the console application.
-```bash
-docker exec -it simple-file-search-web bash
-# Run console
-/var/www/html/bin/console search "your sentence"
-# See the help for more options and usages
-/var/www/html/bin/console search -h
-```
-## UI Demo
 SSH into the container and run the `composer install` command in the
 `symfony_demo` folder.
 ```bash
 docker exec -it simple-file-search-web bash
 cd symfony_demo
 composer install
+# When asked enter the default values for the parameters.yml file
 ```
-See the demo here [127.0.0.1:8080](http://127.0.0.1:8080/)
- 
+Now you can try out the demo. The test files are located in
+`public/demo_files` and you can use regular expresion or simple string to
+find files.
+#### Console Demo
+Run the console application.
+```bash
+# Run console
+bin/console search "your sentence"
+# Run the console with a regular expresion
+bin/console search "#[a-z]#"
+# See the help for more options and usages
+bin/console search -h
+```
+#### UI Demo
+See the demo here [127.0.0.1:8080](http://127.0.0.1:8080/). The UI form
+accepts one or multiple string and they can be separated by comma.
+#### Tests
+You can run the PHPUnit tests by simple going back to the root dir and
+then run the composer script.
+```bash
+cd ..
+composer run phpunit
+```
+To run Codeception tests:
+```bash
+composer run codecept
+```
