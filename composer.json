@@ -12,9 +12,7 @@
     "autoload": {
         "psr-4": {
             "App\\": "src/"
-        },
-        "optimize-autoloader": true,
-        "apcu-autoloader": true
+        }
     },
     "autoload-dev": {
         "psr-4": {
