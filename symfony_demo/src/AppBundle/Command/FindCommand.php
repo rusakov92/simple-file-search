@@ -1,6 +1,6 @@
 <?php
 
-namespace Demo\Console\Command;
+namespace AppBundle\Command;
 
 use App\SimpleFileSearch;
 use Symfony\Component\Console\Command\Command;
@@ -34,7 +34,7 @@ class FindCommand extends Command
             )
             ->addOption(
                 'extension',
-                'e',
+                'E',
                 InputOption::VALUE_IS_ARRAY|InputOption::VALUE_OPTIONAL,
                 'Specify what file extensions to look for',
                 []
@@ -89,7 +89,7 @@ class FindCommand extends Command
             }
         });
 
-        $fileSearch = new SimpleFileSearch(__DIR__.'/../../../public/demo_files');
+        $fileSearch = new SimpleFileSearch(__DIR__.'/../../../../public/demo_files');
         $result = $fileSearch
             ->contains($contentToSearch)
             ->extension($input->getOption('extension'))

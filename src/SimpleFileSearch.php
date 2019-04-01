@@ -158,15 +158,9 @@ class SimpleFileSearch
      * Try finding something from the set rules till now.
      *
      * @return \Iterator
-     *
-     * @throws \UnexpectedValueException
      */
     public function find() : \Iterator
     {
-        if (empty($this->contains)) {
-            throw new \UnexpectedValueException('Please specify at least one regular expresion to search files by content.');
-        }
-
         $dirs = \array_keys($this->dirs);
 
         if (empty($dirs)) {
