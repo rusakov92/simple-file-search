@@ -1,7 +1,10 @@
 # Simple File Search
 This app simply finds files by searching their content.
 # Instalation
-*Empty*
+Install via composer.
+```bash
+composer require rusakov92/simple-file-search
+```
 # Usage
 You have to first create a new instance of the class and specify the base
 directory path of the folder you want to scan files for.
@@ -71,7 +74,7 @@ docker exec -it simple-file-search-web bash
 ```
 ## UI Demo
 SSH into the container and run the `composer install` command in the
-`symfony_demo folder`.
+`symfony_demo` folder.
 ```bash
 docker exec -it simple-file-search-web bash
 cd symfony_demo
