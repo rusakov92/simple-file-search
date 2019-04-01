@@ -20,7 +20,7 @@
         "psr-4": {
             "PHPUnit\\": "tests/PHPUnit/src",
             "PHPUnit\\TestCase\\": "tests/PHPUnit/test_case",
-            "Demo\\": "demo"
+            "Demo\\": "console_demo"
         }
     },
     "require": {

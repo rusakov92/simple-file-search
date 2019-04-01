@@ -70,5 +70,12 @@ docker exec -it simple-file-search-web bash
 /var/www/html/bin/console search -h
 ```
 ## UI Demo
+SSH into the container and run the `composer install` command in the
+`symfony_demo folder`.
+```bash
+docker exec -it simple-file-search-web bash
+cd symfony_demo
+composer install
+```
 See the demo here [127.0.0.1:8080](http://127.0.0.1:8080/)
  
